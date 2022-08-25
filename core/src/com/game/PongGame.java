@@ -43,18 +43,19 @@ public class PongGame extends ApplicationAdapter {
 		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 	}
 
+	private final int TILE_ROW_COUNT = 25;
+	private final int TILES_IN_ROW = 12;
+
 	private void renderTiles() {
-		int tilesInRow = 12;
-		int tileRow = 1;
 		int heightGap = 0;
 		double tileGap = 60;
-		for (int y = 0; y < 5; y++) {
-			tileRow++;
+
+		for (int y = 0; y < TILE_ROW_COUNT; y++) {
 			heightGap--;
-		for (int t = 0; t < tilesInRow; t++) {
+		for (int t = 0; t < TILES_IN_ROW; t++) {
 			renderer.begin(ShapeRenderer.ShapeType.Filled);
 			renderer.setColor(139,0,0,100);
-			renderer.rect((float) (42F + (tileGap*t)),(camera.viewportHeight-60) + tileRow*heightGap*7, (PLATFORM_WIDTH/1.5F), (PLATFORM_HEIGHT/1.5F));
+			renderer.rect((float) (42F + (tileGap*t)),(camera.viewportHeight-40) + heightGap*15, (PLATFORM_WIDTH/1.5F), (PLATFORM_HEIGHT/1.5F));
 			renderer.end();
 			}
 		}
