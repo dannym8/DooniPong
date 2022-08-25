@@ -2,69 +2,61 @@ package com.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.ScreenUtils;
 
-import java.awt.*;
+import java.util.ArrayList;
 
 public class PongGame extends ApplicationAdapter {
 
-	SpriteBatch batch;
-	Texture img;
+	private SpriteBatch batch;
 	private OrthographicCamera camera;
-	ShapeRenderer renderer;
+	private ShapeRenderer renderer;
+	private Ball ball;
+	private ArrayList<Tile> tiles;
+	private TileGrid tileGrid;
+	private Background bg;
 
-	private final float PLATFORM_WIDTH = 83;
-	private final float PLATFORM_HEIGHT = 19;
+	public static final float PLATFORM_WIDTH = 83;
+	public static final float PLATFORM_HEIGHT = 19;
 
 	@Override
 	public void create () {
+
 		batch = new SpriteBatch();
-		img = new Texture("bg.jpg");
+		bg = new Background(0,0,new Texture("bg.jpg"));
+
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,800,600);
+
 		renderer = new ShapeRenderer();
 		renderer.setAutoShapeType(true);
-		renderPlatform();
+
+		Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+		rainMusic.setLooping(true);
+		rainMusic.play();
+
+		tiles = new ArrayList<>();
+		tileGrid = new TileGrid(12,18,tiles);
+
+		ball = new Ball(camera.viewportWidth/2,camera.viewportHeight/2,9,3,3);
+
 	}
 
-	@Override
 	public void render () {
-		// render batches(sprites)/shapes
-		renderBackground();
+		// render background image
+		bg.renderBackground(batch);
+		// render player platform (paddle)
 		renderPlatform();
-		renderTiles();
-		// print fps
-		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
-	}
-
-	private final int TILE_ROW_COUNT = 25;
-	private final int TILES_IN_ROW = 12;
-
-	private void renderTiles() {
-		int heightGap = 0;
-		double tileGap = 60;
-
-		for (int y = 0; y < TILE_ROW_COUNT; y++) {
-			heightGap--;
-		for (int t = 0; t < TILES_IN_ROW; t++) {
-			renderer.begin(ShapeRenderer.ShapeType.Filled);
-			renderer.setColor(139,0,0,100);
-			renderer.rect((float) (42F + (tileGap*t)),(camera.viewportHeight-40) + heightGap*15, (PLATFORM_WIDTH/1.5F), (PLATFORM_HEIGHT/1.5F));
-			renderer.end();
-			}
-		}
-	}
-
-	private void renderBackground() {
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		// draw tile grid
+		tileGrid.drawGrid(renderer);
+		// update ball position (movement)
+		ball.updatePos();
+		// render ball
+		ball.renderBall(renderer);
 	}
 
 	// renders the player platform
@@ -79,7 +71,6 @@ public class PongGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 		renderer.dispose();
 	}
 }
