@@ -3,6 +3,7 @@ package com.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,10 +15,11 @@ import java.awt.*;
 
 public class PongGame extends ApplicationAdapter {
 
-	SpriteBatch batch;
-	Texture img;
+	private SpriteBatch batch;
+	private Texture img;
 	private OrthographicCamera camera;
-	ShapeRenderer renderer;
+	private ShapeRenderer renderer;
+	private Music rainMusic;
 
 	private final float PLATFORM_WIDTH = 83;
 	private final float PLATFORM_HEIGHT = 19;
@@ -31,6 +33,9 @@ public class PongGame extends ApplicationAdapter {
 		renderer = new ShapeRenderer();
 		renderer.setAutoShapeType(true);
 		renderPlatform();
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+		rainMusic.setLooping(true);
+		rainMusic.play();
 	}
 
 	@Override
@@ -43,19 +48,18 @@ public class PongGame extends ApplicationAdapter {
 		System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
 	}
 
-	private final int TILE_ROW_COUNT = 25;
-	private final int TILES_IN_ROW = 12;
-
 	private void renderTiles() {
 		int heightGap = 0;
 		double tileGap = 60;
 
+		int TILE_ROW_COUNT = 18;
 		for (int y = 0; y < TILE_ROW_COUNT; y++) {
 			heightGap--;
-		for (int t = 0; t < TILES_IN_ROW; t++) {
+			int TILES_IN_ROW = 12;
+			for (int t = 0; t < TILES_IN_ROW; t++) {
 			renderer.begin(ShapeRenderer.ShapeType.Filled);
-			renderer.setColor(139,0,0,100);
-			renderer.rect((float) (42F + (tileGap*t)),(camera.viewportHeight-40) + heightGap*15, (PLATFORM_WIDTH/1.5F), (PLATFORM_HEIGHT/1.5F));
+			renderer.setColor(100,0,0,100);
+			renderer.rect((float) (41F + (tileGap*t)),(camera.viewportHeight-40) + heightGap*15, (PLATFORM_WIDTH/1.5F), (PLATFORM_HEIGHT/1.5F));
 			renderer.end();
 			}
 		}
