@@ -8,6 +8,9 @@ public class Platform {
 
     public static final float PLATFORM_WIDTH = 83;
     public static final float PLATFORM_HEIGHT = 19;
+    public float x;
+    public float y;
+
 
     private ShapeRenderer.ShapeType type;
     private Color color;
@@ -20,8 +23,9 @@ public class Platform {
     public void renderPlatform(ShapeRenderer renderer) {
         renderer.begin(type);
         renderer.setColor(color);
-        int mouseX = Gdx.input.getX();
-        renderer.rect(mouseX - (PLATFORM_WIDTH/2), 20, PLATFORM_WIDTH, PLATFORM_HEIGHT);
+        x =  Gdx.input.getX() - (PLATFORM_WIDTH / 2);
+        y =  20;
+        renderer.rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         renderer.end();
     }
 }

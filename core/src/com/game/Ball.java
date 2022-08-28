@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import static com.game.Platform.PLATFORM_HEIGHT;
+
 public class Ball {
 
     private float x;
@@ -11,29 +13,48 @@ public class Ball {
     private float radius;
     private float xSpeed;
     private float ySpeed;
+    private Color color;
 
-    public Ball(float x, float y, float radius, float xSpeed, float ySpeed) {
+    public Ball(float x, float y, float radius, float xSpeed, float ySpeed, Color color) {
         this.x = x;
         this.y = y;
         this.radius = radius;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
+        this.color = color;
     }
 
     public void updatePos() {
         x += xSpeed;
         y += ySpeed;
-        if ( x < 0 || x > Gdx.graphics.getWidth()) {
+        if ( x - radius < 0 || x + radius > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
-        if (y < 0 || y > Gdx.graphics.getHeight()) {
+        if (y - radius < 0 || y + radius > Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
         }
     }
 
+    public void checkCollision(Platform platform) {
+        if (collidesWith(platform)) {
+            color = Color.GOLD;
+        } else {
+            color = Color.WHITE;
+        }
+    }
+
+    public boolean collidesWith(Platform platform) {
+       if (y - radius <= platform.y + PLATFORM_HEIGHT) {
+           System.out.println("bounce at Y: " + y);
+           ySpeed = -ySpeed;
+           return true;
+       }
+        return false;
+    }
+
     public void renderBall(ShapeRenderer renderer) {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setColor(Color.WHITE);
+        renderer.setColor(color);
         renderer.circle(x,y,radius);
         renderer.end();
     }
