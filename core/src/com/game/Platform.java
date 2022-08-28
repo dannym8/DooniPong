@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import static com.game.PongGame.PLATFORM_HEIGHT;
-import static com.game.PongGame.PLATFORM_WIDTH;
-
 public class Platform {
 
-    ShapeRenderer.ShapeType type;
-    Color color;
+    public static final float PLATFORM_WIDTH = 83;
+    public static final float PLATFORM_HEIGHT = 19;
+
+    private ShapeRenderer.ShapeType type;
+    private Color color;
 
     public Platform(ShapeRenderer.ShapeType type, Color color) {
         this.type = type;
