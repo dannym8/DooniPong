@@ -16,26 +16,24 @@ public class TileGrid {
         this.gridHeight = gridHeight;
         this.tiles = tiles;
     }
+
     // constructor without array list
     public TileGrid(int gridWidth, int gridHeight) {
         this.gridWidth = gridWidth;
         this.gridHeight = gridHeight;
     }
 
-    public void drawGrid(ShapeRenderer renderer, Tile tile) {
-        int heightGap = 0;
-        double tileGap = 60;
-        for (int y = 0; y < gridHeight; y++) {
-            heightGap--;
-            for (int t = 0; t < gridWidth; t++) {
-                tile.setX((float) (41F + (tileGap * t)));
-                tile.setY((Gdx.graphics.getHeight() - 40) + heightGap * 15);
-                tile.setCol(y+1);
-                tile.setRow(t+1);
-                tile.renderTile(renderer);
-                tiles.add(tile);
-                renderer.end();
+    public void drawGrid(ShapeRenderer renderer) {
+//            int heightGap = 0;
+//            double tileGap = 60;
+//            for (int y = 0; y < gridHeight; y++) {
+//                heightGap--;
+//                for (int t = 0; t < gridWidth; t++) {
+//                    tiles.get(i).setX((float) (41F + (tileGap * t)));
+//                    tiles.get(i).setY((Gdx.graphics.getHeight() - 40) + heightGap * 15);
+//                    tiles.get(i).setCol(y + 1);
+//                    tiles.get(i).setRow(t + 1);
+//                    tiles.get(i).renderTile(renderer);
+//                    renderer.end();
+                }
             }
-        }
-    }
-}

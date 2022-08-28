@@ -70,15 +70,22 @@ public class Tile {
     }
 
     public void renderTile(ShapeRenderer renderer) {
-        renderer.begin(ShapeRenderer.ShapeType.Filled);
-        renderer.setColor(color);
-        renderer.rect(x,y,width,height);
-        renderer.end();
+        if (!isDestroyed()) {
+            renderer.begin(ShapeRenderer.ShapeType.Filled);
+            renderer.setColor(color);
+            renderer.rect(x, y, width, height);
+            renderer.end();
+        }
     }
 
     @Override
     public String toString() {
         return "Tile at: [" + row + "]" + "[" + col + "]";
+    }
+
+    boolean destroyed;
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
 }

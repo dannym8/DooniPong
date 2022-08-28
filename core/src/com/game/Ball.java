@@ -43,6 +43,8 @@ public class Ball {
     public void checkCollision(Platform platform) {
         if (collidesWith(platform)) {
             color = Color.GOLD;
+            ySpeed = -ySpeed;
+            System.out.println("bounce");
         } else {
             color = Color.WHITE;
         }
@@ -51,8 +53,26 @@ public class Ball {
     public boolean collidesWith(Platform platform) {
         if (y - radius <= platform.y + PLATFORM_HEIGHT) {
             if (x - radius <= platform.x + PLATFORM_WIDTH && x + radius >= platform.x) {
-                ySpeed = -ySpeed;
-                System.out.println("bounce");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void checkCollision(Tile tile) {
+        if (collidesWith(tile)) {
+            color = Color.GOLD;
+            ySpeed = -ySpeed;
+            tile.destroyed = true;
+            System.out.println("hit tile");
+        } else {
+            color = Color.WHITE;
+        }
+    }
+
+    public boolean collidesWith(Tile tile) {
+        if (y - radius >= tile.y) {
+            if (x - radius <= tile.x + tile.width && x + radius >= tile.x) {
                 return true;
             }
         }
