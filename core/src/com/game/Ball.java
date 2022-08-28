@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import static com.game.Platform.PLATFORM_HEIGHT;
+import static com.game.Platform.PLATFORM_WIDTH;
 
 public class Ball {
 
@@ -30,8 +31,12 @@ public class Ball {
         if ( x - radius < 0 || x + radius > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
-        if (y - radius < 0 || y + radius > Gdx.graphics.getHeight()) {
+        if ( y + radius > Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
+        }
+        if ( y - radius < 0) {
+            y = (float) Gdx.graphics.getHeight()/2;
+            x = (float) Gdx.graphics.getWidth()/2;
         }
     }
 
@@ -44,59 +49,61 @@ public class Ball {
     }
 
     public boolean collidesWith(Platform platform) {
-       if (y - radius <= platform.y + PLATFORM_HEIGHT) {
-           System.out.println("bounce at Y: " + y);
-           ySpeed = -ySpeed;
-           return true;
-       }
+        if (y - radius <= platform.y + PLATFORM_HEIGHT) {
+            if (x - radius <= platform.x + PLATFORM_WIDTH && x + radius >= platform.x) {
+                ySpeed = -ySpeed;
+                System.out.println("bounce");
+                return true;
+            }
+        }
         return false;
     }
 
-    public void renderBall(ShapeRenderer renderer) {
+public void renderBall(ShapeRenderer renderer) {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(color);
         renderer.circle(x,y,radius);
         renderer.end();
-    }
+        }
 
-    public float getX() {
+public float getX() {
         return x;
-    }
+        }
 
-    public void setX(float x) {
+public void setX(float x) {
         this.x = x;
-    }
+        }
 
-    public float getY() {
+public float getY() {
         return y;
-    }
+        }
 
-    public void setY(float y) {
+public void setY(float y) {
         this.y = y;
-    }
+        }
 
-    public float getRadius() {
+public float getRadius() {
         return radius;
-    }
+        }
 
-    public void setRadius(float radius) {
+public void setRadius(float radius) {
         this.radius = radius;
-    }
+        }
 
-    public float getxSpeed() {
+public float getxSpeed() {
         return xSpeed;
-    }
+        }
 
-    public void setxSpeed(float xSpeed) {
+public void setxSpeed(float xSpeed) {
         this.xSpeed = xSpeed;
-    }
+        }
 
-    public float getySpeed() {
+public float getySpeed() {
         return ySpeed;
-    }
+        }
 
-    public void setySpeed(float ySpeed) {
+public void setySpeed(float ySpeed) {
         this.ySpeed = ySpeed;
-    }
+        }
 
-}
+        }
