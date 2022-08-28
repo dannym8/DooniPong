@@ -23,7 +23,9 @@ public class Platform {
     public void renderPlatform(ShapeRenderer renderer) {
         renderer.begin(type);
         renderer.setColor(color);
-        x =  Gdx.input.getX() - (PLATFORM_WIDTH / 2);
+        if (!(Gdx.input.getX() - PLATFORM_WIDTH / 2 < 0 || Gdx.input.getX() + PLATFORM_WIDTH / 2 > Gdx.graphics.getWidth() )) {
+            x = Gdx.input.getX() - (PLATFORM_WIDTH / 2);
+        }
         y =  20;
         renderer.rect(x, y, PLATFORM_WIDTH, PLATFORM_HEIGHT);
         renderer.end();

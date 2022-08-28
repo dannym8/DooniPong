@@ -71,7 +71,7 @@ public class Ball {
     }
 
     public boolean collidesWith(Tile tile) {
-        if (y - radius >= tile.y) {
+        if (y + radius >= tile.y) {
             if (x - radius <= tile.x + tile.width && x + radius >= tile.x) {
                 return true;
             }

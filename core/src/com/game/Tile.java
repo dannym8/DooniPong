@@ -1,5 +1,6 @@
 package com.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
@@ -75,6 +76,9 @@ public class Tile {
             renderer.setColor(color);
             renderer.rect(x, y, width, height);
             renderer.end();
+        } else {
+            x = -200;
+            y = -200;
         }
     }
 

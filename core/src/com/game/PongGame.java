@@ -72,7 +72,7 @@ public class PongGame extends ApplicationAdapter {
 			tileGrid = new TileGrid(gridWidth, gridHeight, tiles);
 
 			// ball that bounces around
-			ball = new Ball(camera.viewportWidth / 2, camera.viewportHeight / 2, 9, 3, 3, Color.WHITE);
+			ball = new Ball(camera.viewportWidth / 2, 100 , 9, 3, 3, Color.WHITE);
 
 			// player platform (paddle)
 			platform = new Platform(ShapeRenderer.ShapeType.Filled, Color.WHITE);
