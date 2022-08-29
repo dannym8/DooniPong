@@ -44,15 +44,17 @@ public class Ball {
         if (collidesWith(platform)) {
             color = Color.GOLD;
             ySpeed = -ySpeed;
-            System.out.println("bounce");
         } else {
             color = Color.WHITE;
         }
     }
 
     public boolean collidesWith(Platform platform) {
-        if (y - radius <= platform.y + PLATFORM_HEIGHT) {
+        if (y + radius >= platform.y && y - radius <= platform.y + PLATFORM_HEIGHT) {
             if (x - radius <= platform.x + PLATFORM_WIDTH && x + radius >= platform.x) {
+                if (x - radius < platform.x || x + radius > platform.x + PLATFORM_WIDTH) {
+                    xSpeed = -xSpeed;
+                }
                 return true;
             }
         }
@@ -64,66 +66,34 @@ public class Ball {
             color = Color.GOLD;
             ySpeed = -ySpeed;
             tile.destroyed = true;
-            System.out.println("hit tile");
         } else {
             color = Color.WHITE;
         }
     }
 
+    int counter = 0;
     public boolean collidesWith(Tile tile) {
-        if (y + radius >= tile.y) {
-            if (x - radius <= tile.x + tile.width && x + radius >= tile.x) {
-                return true;
+        counter++;
+        if (counter >= 20) {
+            if (y + radius >= tile.y && y - radius <= tile.y + tile.height) {
+                if (x - radius <= tile.x + tile.width && x + radius >= tile.x) {
+                    if (x - radius < tile.x || x + radius > tile.x + tile.height) {
+                        xSpeed = -xSpeed;
+                    }
+                    counter = 0;
+                    return true;
+                }
             }
         }
         return false;
     }
 
-public void renderBall(ShapeRenderer renderer) {
+
+    public void renderBall(ShapeRenderer renderer) {
         renderer.begin(ShapeRenderer.ShapeType.Filled);
         renderer.setColor(color);
         renderer.circle(x,y,radius);
         renderer.end();
-        }
+    }
 
-public float getX() {
-        return x;
-        }
-
-public void setX(float x) {
-        this.x = x;
-        }
-
-public float getY() {
-        return y;
-        }
-
-public void setY(float y) {
-        this.y = y;
-        }
-
-public float getRadius() {
-        return radius;
-        }
-
-public void setRadius(float radius) {
-        this.radius = radius;
-        }
-
-public float getxSpeed() {
-        return xSpeed;
-        }
-
-public void setxSpeed(float xSpeed) {
-        this.xSpeed = xSpeed;
-        }
-
-public float getySpeed() {
-        return ySpeed;
-        }
-
-public void setySpeed(float ySpeed) {
-        this.ySpeed = ySpeed;
-        }
-
-        }
+}
