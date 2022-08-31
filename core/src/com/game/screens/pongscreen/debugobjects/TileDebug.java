@@ -1,10 +1,8 @@
-package com.game.screens.pongscreen.pongobjects.debugobjects;
+package com.game.screens.pongscreen.debugobjects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.game.screens.pongscreen.pongobjects.Ball;
-import com.game.screens.pongscreen.pongobjects.Tile;
+import com.game.screens.pongscreen.Tile;
 
 import java.util.ArrayList;
 

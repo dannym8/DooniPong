@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.game.screens.DooniPong;
-import com.game.screens.pongscreen.PongGameScreen;
+import com.game.screens.pongscreen.PongScreen;
 
 public class MainMenuScreen implements Screen {
 
@@ -39,7 +39,7 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.setScreen(new PongGameScreen(game));
+            game.setScreen(new PongScreen(game));
             dispose();
         }
     }

@@ -1,4 +1,4 @@
-package com.game.screens.pongscreen.pongobjects.debugobjects;
+package com.game.screens.pongscreen.debugobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

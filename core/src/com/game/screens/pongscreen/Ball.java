@@ -1,13 +1,15 @@
-package com.game.screens.pongscreen.pongobjects;
+package com.game.screens.pongscreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Disposable;
 
-import static com.game.screens.pongscreen.pongobjects.Platform.PLATFORM_HEIGHT;
-import static com.game.screens.pongscreen.pongobjects.Platform.PLATFORM_WIDTH;
+import static com.game.screens.pongscreen.Platform.PLATFORM_HEIGHT;
+import static com.game.screens.pongscreen.Platform.PLATFORM_WIDTH;
 
-public class Ball {
+public class Ball implements Disposable {
 
     private float x;
     private float y;
@@ -48,10 +50,22 @@ public class Ball {
         }
     }
 
+    Sound platformHit1 = Gdx.audio.newSound(Gdx.files.internal("sounds/platformhit1.mp3"));
+    Sound platformHit2 = Gdx.audio.newSound(Gdx.files.internal("sounds/platformhit2.mp3"));
+    Sound platformHit3 = Gdx.audio.newSound(Gdx.files.internal("sounds/platformhit3.mp3"));
+
+
     public void checkCollision(Platform platform) {
         if (collidesWith(platform)) {
             color = Color.GOLD;
             ySpeed = -ySpeed;
+            if (Math.random() <= 0.33) {
+                platformHit1.play();
+            } else if (Math.random() <= 0.66) {
+                platformHit2.play();
+            } else {
+                platformHit3.play();
+            }
         } else {
             color = Color.WHITE;
         }
@@ -69,10 +83,18 @@ public class Ball {
         return false;
     }
 
+    Sound blip1 = Gdx.audio.newSound(Gdx.files.internal("sounds/destroysound1.mp3"));
+    Sound blip2 = Gdx.audio.newSound(Gdx.files.internal("sounds/destroysound2.mp3"));
+
     public void checkCollision(Tile tile) {
         if (collidesWith(tile)) {
             counter = 0;
             tile.destroyed = true;
+            if (Math.random() <= .50) {
+                blip1.play();
+            } else {
+                blip2.play();
+            }
         } else {
             color = Color.WHITE;
         }
@@ -89,7 +111,6 @@ public class Ball {
                     }
                     if (velRight >= tile.x && velRight <= tile.x + 12 || velLeft <= tile.x + tile.width && velLeft >= tile.x + tile.width - 12) {
                         xSpeed = -xSpeed;
-
                         counter = 0;
                     }
                     return true;
@@ -106,4 +127,12 @@ public class Ball {
         renderer.end();
     }
 
+    @Override
+    public void dispose() {
+        platformHit1.dispose();
+        platformHit2.dispose();
+        platformHit3.dispose();
+        blip1.dispose();
+        blip2.dispose();
+    }
 }

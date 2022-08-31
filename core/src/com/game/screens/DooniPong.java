@@ -27,5 +27,4 @@ public class DooniPong extends Game {
         batch.dispose();
         font.dispose();
     }
-
 }

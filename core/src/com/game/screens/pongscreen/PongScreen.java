@@ -10,11 +10,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.game.screens.DooniPong;
-import com.game.screens.pongscreen.pongobjects.*;
 
 import java.util.ArrayList;
 
-public class PongGameScreen implements Screen {
+public class PongScreen implements Screen {
 
 	public SpriteBatch batch;
 	private final ShapeRenderer renderer;
@@ -26,7 +25,7 @@ public class PongGameScreen implements Screen {
 	private final Music rainMusic;
 	final DooniPong game;
 
-	public PongGameScreen(final DooniPong game) {
+	public PongScreen(final DooniPong game) {
 		this.game = game;
 
 		// sets cursor to be cross-hair (invisible due to cursor catching in the next line)
@@ -39,7 +38,7 @@ public class PongGameScreen implements Screen {
 
 		// batch to render sprites and bg picture
 		batch = new SpriteBatch();
-		bg = new Background(0, 0, new Texture("bg.jpg"));
+		bg = new Background(0, 0, new Texture("images/bg.jpg"));
 
 		// orthographic camera
 		OrthographicCamera camera = new OrthographicCamera();
@@ -50,7 +49,7 @@ public class PongGameScreen implements Screen {
 		renderer.setAutoShapeType(true);
 
 		// background music, looping
-		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/rain.mp3"));
 		rainMusic.setLooping(true);
 		rainMusic.play();
 

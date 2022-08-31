@@ -1,13 +1,13 @@
-package com.game.screens.pongscreen.pongobjects.debugobjects;
+package com.game.screens.pongscreen.debugobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.game.screens.pongscreen.pongobjects.Platform;
-import com.game.screens.pongscreen.pongobjects.Tile;
+import com.game.screens.pongscreen.Platform;
+import com.game.screens.pongscreen.Tile;
 
-import static com.game.screens.pongscreen.pongobjects.Platform.PLATFORM_HEIGHT;
-import static com.game.screens.pongscreen.pongobjects.Platform.PLATFORM_WIDTH;
+import static com.game.screens.pongscreen.Platform.PLATFORM_HEIGHT;
+import static com.game.screens.pongscreen.Platform.PLATFORM_WIDTH;
 
 public class BallDebug {
 
