@@ -2,6 +2,7 @@ package com.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import static com.game.Platform.PLATFORM_HEIGHT;
@@ -15,6 +16,10 @@ public class Ball {
     private float xSpeed;
     private float ySpeed;
     private Color color;
+    private float velLeft;
+    private float velRight;
+    private float velUp;
+    private float velDown;
 
     public Ball(float x, float y, float radius, float xSpeed, float ySpeed, Color color) {
         this.x = x;
@@ -28,16 +33,30 @@ public class Ball {
     public void updatePos() {
         x += xSpeed;
         y += ySpeed;
-        if ( x - radius < 0 || x + radius > Gdx.graphics.getWidth()) {
+        velLeft = x - radius;
+        velRight = x + radius;
+        velUp = y - radius;
+        velDown = y + radius;
+        if ( velLeft < 0 || velRight > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
-        if ( y + radius > Gdx.graphics.getHeight()) {
+        if ( velUp > Gdx.graphics.getHeight()) {
             ySpeed = -ySpeed;
         }
-        if ( y - radius < 0) {
-            y = (float) Gdx.graphics.getHeight()/2;
+        if ( velDown < 0) {
+            y = (float) Gdx.graphics.getHeight()/2 - 50;
             x = (float) Gdx.graphics.getWidth()/2;
         }
+    }
+
+    public void updatePosDebug() {
+        x = Gdx.input.getX();
+        y = Gdx.graphics.getHeight() - Gdx.input.getY();
+        velLeft = x - radius;
+        velRight = x + radius;
+        velUp = y + radius;
+        velDown = y - radius;
+
     }
 
     public void checkCollision(Platform platform) {
@@ -63,8 +82,7 @@ public class Ball {
 
     public void checkCollision(Tile tile) {
         if (collidesWith(tile)) {
-            color = Color.GOLD;
-            ySpeed = -ySpeed;
+            counter = 0;
             tile.destroyed = true;
         } else {
             color = Color.WHITE;
@@ -74,17 +92,41 @@ public class Ball {
     int counter = 0;
     public boolean collidesWith(Tile tile) {
         counter++;
-        if (counter >= 20) {
+        if (counter >= 200) {
             if (y + radius >= tile.y && y - radius <= tile.y + tile.height) {
-                if (x - radius <= tile.x + tile.width && x + radius >= tile.x) {
-                    if (x - radius < tile.x || x + radius > tile.x + tile.height) {
+                if (velRight >= tile.x && velLeft <= tile.x + tile.width) {
+                    ySpeed = -ySpeed;
+                    if (velRight >= tile.x && velRight <= tile.x + 12 || velLeft <= tile.x + tile.width && velLeft >= tile.x + tile.width - 12) {
                         xSpeed = -xSpeed;
+                        counter = 0;
                     }
-                    counter = 0;
                     return true;
                 }
             }
         }
+        return false;
+    }
+
+    public void checkCollisionDebug(Tile tile) {
+        if (collidesWithDebug(tile)) {
+            //color = Color.GOLD;
+            ySpeed = -ySpeed;
+        } else {
+            color = Color.WHITE;
+        }
+    }
+
+    public boolean collidesWithDebug(Tile tile) {
+        if (velUp >= tile.y && velDown <= tile.y + tile.height) {
+            color = Color.RED;
+                if (velRight >= tile.x + 4 && velLeft <= tile.x + tile.width - 4) {
+                    color = Color.YELLOW;
+                    if (velRight >= tile.x && velRight <= tile.x + 12 || velLeft <= tile.x + tile.width && velLeft >= tile.x + tile.width - 12) {
+                        color = Color.GREEN;
+                    }
+                }
+                return true;
+            }
         return false;
     }
 

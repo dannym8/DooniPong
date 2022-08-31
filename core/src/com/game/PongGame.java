@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,8 +32,10 @@ public class PongGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		gridHeight = 18;
-		gridWidth = 12;
+		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None);
+
+		gridHeight = 7;
+		gridWidth = 11;
 
 		// batch to render sprites and bg picture
 		batch = new SpriteBatch();
@@ -59,7 +62,7 @@ public class PongGame extends ApplicationAdapter {
 		tileGrid.createTiles();
 
 		// ball that bounces around
-		ball = new Ball(camera.viewportWidth / 2, 100 , 9, 3, 3, Color.WHITE);
+		ball = new Ball(camera.viewportWidth / 2, 100 , 9, 2, 3, Color.WHITE);
 
 		// player platform (paddle)
 		platform = new Platform(ShapeRenderer.ShapeType.Filled, Color.WHITE);
@@ -67,18 +70,26 @@ public class PongGame extends ApplicationAdapter {
 	}
 
 	public void render () {
+
 		// render background image
 		bg.renderBackground(batch);
+
 		// render player platform (paddle)
 		platform.renderPlatform(renderer);
+
 		// update ball position (movement)
 		ball.updatePos();
-		// render ball
-		ball.renderBall(renderer);
+
+
 		// check platform collision
 		ball.checkCollision(platform);
+
+
 		// check tiles collision
 		tileGrid.renderTiles(renderer, ball);
+
+		// render ball
+		ball.renderBall(renderer);
 
 	}
 

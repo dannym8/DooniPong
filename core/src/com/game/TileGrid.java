@@ -1,13 +1,11 @@
 package com.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
-
-import static com.game.Platform.PLATFORM_HEIGHT;
-import static com.game.Platform.PLATFORM_WIDTH;
 
 public class TileGrid {
 
@@ -31,13 +29,13 @@ public class TileGrid {
 
     public void createTiles() {
         int heightGap = 0;
-        double tileGap = 60;
+        double tileGap = 70;
         for (int y = 0; y < gridHeight; y++) {
             heightGap--;
             for (int t = 0; t < gridWidth; t++) {
-                tile = new Tile((PLATFORM_WIDTH / 1.5F), (PLATFORM_HEIGHT / 1.5F), new Color(0xaee6f8));
-                tile.setX((float) (41F + (tileGap * t)));
-                tile.setY((Gdx.graphics.getHeight() - 40) + heightGap * 15);
+                tile = new Tile(65,25 , new Color(0xaee6f8));
+                tile.setX((float) (15F + (tileGap * t)));
+                tile.setY((Gdx.graphics.getHeight() - 40) + heightGap * 30);
                 tile.setCol(y + 1);
                 tile.setRow(t + 1);
                 tiles.add(tile);
@@ -46,10 +44,16 @@ public class TileGrid {
     }
 
     public void renderTiles(ShapeRenderer renderer, Ball ball) {
-        for (Tile tile: tiles) {
+        for (Tile tile : tiles) {
             tile.renderTile(renderer);
             ball.checkCollision(tile);
         }
     }
 
+    public void renderTileDebug(ShapeRenderer renderer, Ball ball) {
+        tiles.get(0).setX(Gdx.graphics.getWidth()/2 - tiles.get(0).width/2);
+        tiles.get(0).setY(Gdx.graphics.getHeight()/2);
+        tiles.get(0).renderTile(renderer);
+        ball.checkCollisionDebug(tiles.get(0));
+    }
 }
