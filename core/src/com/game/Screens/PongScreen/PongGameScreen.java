@@ -1,7 +1,7 @@
-package com.game;
+package com.game.Screens.PongScreen;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
@@ -9,15 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.game.Screens.DooniPong;
 
 import java.util.ArrayList;
 
-import static com.game.Platform.PLATFORM_HEIGHT;
-import static com.game.Platform.PLATFORM_WIDTH;
+public class PongGameScreen implements Screen {
 
-public class PongGame extends ApplicationAdapter {
-
-	private SpriteBatch batch;
+	public SpriteBatch batch;
 	private OrthographicCamera camera;
 	private ShapeRenderer renderer;
 	private Ball ball;
@@ -28,9 +26,12 @@ public class PongGame extends ApplicationAdapter {
 
 	private int gridHeight;
 	private int gridWidth;
+	private Music rainMusic;
+	final DooniPong game;
 
-	@Override
-	public void create () {
+	public PongGameScreen(final DooniPong game) {
+
+		this.game = game;
 
 		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
 		Gdx.input.setCursorCatched(true);
@@ -51,7 +52,7 @@ public class PongGame extends ApplicationAdapter {
 		renderer.setAutoShapeType(true);
 
 		// background music, looping
-		Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 		rainMusic.setLooping(true);
 		rainMusic.play();
 
@@ -70,8 +71,13 @@ public class PongGame extends ApplicationAdapter {
 
 	}
 
-	public void render () {
+	@Override
+	public void show() {
 
+	}
+
+	@Override
+	public void render(float delta) {
 		// render background image
 		bg.renderBackground(batch);
 
@@ -81,24 +87,40 @@ public class PongGame extends ApplicationAdapter {
 		// update ball position (movement)
 		ball.updatePos();
 
-
 		// check platform collision
 		ball.checkCollision(platform);
-
 
 		// check tiles collision
 		tileGrid.renderTiles(renderer, ball);
 
 		// render ball
 		ball.renderBall(renderer);
+	}
 
-		// check
+	@Override
+	public void resize(int width, int height) {
+
+	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
 
 	}
 
 	@Override
 	public void dispose () {
 		// destroy resources when application stops
+		rainMusic.dispose();
 		batch.dispose();
 		renderer.dispose();
 	}

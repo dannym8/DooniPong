@@ -1,12 +1,11 @@
-package com.game;
+package com.game.Screens.PongScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import static com.game.Platform.PLATFORM_HEIGHT;
-import static com.game.Platform.PLATFORM_WIDTH;
+import static com.game.Screens.PongScreen.Platform.PLATFORM_HEIGHT;
+import static com.game.Screens.PongScreen.Platform.PLATFORM_WIDTH;
 
 public class Ball {
 

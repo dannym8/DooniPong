@@ -1,9 +1,9 @@
 package com.game;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.game.PongGame;
+import com.game.Screens.DooniPong;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		config.useVsync(true);
 		config.setWindowedMode(800,600);
 		config.setTitle("Dooni Pong");
-		new Lwjgl3Application(new PongGame(), config);
+		new Lwjgl3Application(new DooniPong(), config);
 	}
 }
