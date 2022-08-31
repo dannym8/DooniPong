@@ -17,17 +17,13 @@ import java.util.ArrayList;
 public class PongGameScreen implements Screen {
 
 	public SpriteBatch batch;
-	private OrthographicCamera camera;
-	private ShapeRenderer renderer;
-	private Ball ball;
-	private ArrayList<Tile> tiles;
-	private TileGrid tileGrid;
-	private Background bg;
-	private Platform platform;
+	private final ShapeRenderer renderer;
+	private final Ball ball;
+	private final TileGrid tileGrid;
+	private final Background bg;
+	private final Platform platform;
 
-	private int gridHeight;
-	private int gridWidth;
-	private Music rainMusic;
+	private final Music rainMusic;
 	final DooniPong game;
 
 	public PongGameScreen(final DooniPong game) {
@@ -38,15 +34,15 @@ public class PongGameScreen implements Screen {
 		Gdx.input.setCursorCatched(true);
 
 		// Tile grid dimensions
-		gridHeight = 7;
-		gridWidth = 11;
+		int gridHeight = 7;
+		int gridWidth = 11;
 
 		// batch to render sprites and bg picture
 		batch = new SpriteBatch();
 		bg = new Background(0, 0, new Texture("bg.jpg"));
 
 		// orthographic camera
-		camera = new OrthographicCamera();
+		OrthographicCamera camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 600);
 
 		// shape renderer
@@ -59,7 +55,7 @@ public class PongGameScreen implements Screen {
 		rainMusic.play();
 
 		// arraylist to be used for tiles in tile grid
-		tiles = new ArrayList<>();
+		ArrayList<Tile> tiles = new ArrayList<>();
 
 		// tile grid that takes in width and height and tile list to put tile objects in
 		tileGrid = new TileGrid(gridWidth, gridHeight, tiles);
