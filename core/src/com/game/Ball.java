@@ -95,12 +95,15 @@ public class Ball {
         if (counter >= 200) {
             if (y + radius >= tile.y && y - radius <= tile.y + tile.height) {
                 if (velRight >= tile.x && velLeft <= tile.x + tile.width) {
-                    ySpeed = -ySpeed;
+                    if (ySpeed > 0) {
+                        ySpeed = -ySpeed;
+                    }
                     if (velRight >= tile.x && velRight <= tile.x + 12 || velLeft <= tile.x + tile.width && velLeft >= tile.x + tile.width - 12) {
-                        xSpeed = -xSpeed;
+                            xSpeed = -xSpeed;
+
                         counter = 0;
                     }
-                    return true;
+                        return true;
                 }
             }
         }

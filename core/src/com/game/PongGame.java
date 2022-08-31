@@ -32,7 +32,8 @@ public class PongGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 
-		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None);
+		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
+		Gdx.input.setCursorCatched(true);
 
 		gridHeight = 7;
 		gridWidth = 11;
@@ -90,6 +91,8 @@ public class PongGame extends ApplicationAdapter {
 
 		// render ball
 		ball.renderBall(renderer);
+
+		// check
 
 	}
 
