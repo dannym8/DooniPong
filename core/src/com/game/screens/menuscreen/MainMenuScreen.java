@@ -1,17 +1,20 @@
-package com.game.Screens.MenuScreen;
+package com.game.screens.menuscreen;
 
-import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.game.screens.DooniPong;
+import com.game.screens.pongscreen.PongGameScreen;
 
 public class MainMenuScreen implements Screen {
 
-    final Game game;
+    final DooniPong game;
 
     OrthographicCamera camera;
 
-    public MainMenuScreen(Game game) {
+    public MainMenuScreen(final DooniPong game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -26,7 +29,19 @@ public class MainMenuScreen implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0,0,0.2f,1);
+        
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
 
+        game.batch.begin();
+        game.font.draw(game.batch, "Welcome to DooniPong!! ", 100, 150);
+        game.font.draw(game.batch, "Press 'SPACE' to begin playing!", 100, 100);
+        game.batch.end();
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            game.setScreen(new PongGameScreen(game));
+            dispose();
+        }
     }
 
     @Override

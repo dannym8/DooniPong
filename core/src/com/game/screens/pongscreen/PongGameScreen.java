@@ -1,4 +1,4 @@
-package com.game.Screens.PongScreen;
+package com.game.screens.pongscreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,7 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.game.Screens.DooniPong;
+import com.game.screens.DooniPong;
+import com.game.screens.pongscreen.pongobjects.*;
 
 import java.util.ArrayList;
 
@@ -30,12 +31,13 @@ public class PongGameScreen implements Screen {
 	final DooniPong game;
 
 	public PongGameScreen(final DooniPong game) {
-
 		this.game = game;
 
+		// sets cursor to be cross-hair (invisible due to cursor catching in the next line)
 		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
 		Gdx.input.setCursorCatched(true);
 
+		// Tile grid dimensions
 		gridHeight = 7;
 		gridWidth = 11;
 
@@ -72,11 +74,6 @@ public class PongGameScreen implements Screen {
 	}
 
 	@Override
-	public void show() {
-
-	}
-
-	@Override
 	public void render(float delta) {
 		// render background image
 		bg.renderBackground(batch);
@@ -98,9 +95,20 @@ public class PongGameScreen implements Screen {
 	}
 
 	@Override
+	public void dispose () {
+		// destroy resources when application stops
+		rainMusic.dispose();
+		batch.dispose();
+		renderer.dispose();
+	}
+
+	@Override
 	public void resize(int width, int height) {
 
 	}
+
+	@Override
+	public void show() {}
 
 	@Override
 	public void pause() {
@@ -117,11 +125,4 @@ public class PongGameScreen implements Screen {
 
 	}
 
-	@Override
-	public void dispose () {
-		// destroy resources when application stops
-		rainMusic.dispose();
-		batch.dispose();
-		renderer.dispose();
-	}
 }

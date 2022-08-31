@@ -1,9 +1,9 @@
-package com.game.Screens;
+package com.game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.Screens.MenuScreen.MainMenuScreen;
+import com.game.screens.menuscreen.MainMenuScreen;
 
 public class DooniPong extends Game {
 
@@ -13,7 +13,7 @@ public class DooniPong extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();
+        font = new BitmapFont(); // Arial font by default
         this.setScreen(new MainMenuScreen(this));
     }
 
@@ -27,4 +27,5 @@ public class DooniPong extends Game {
         batch.dispose();
         font.dispose();
     }
+
 }

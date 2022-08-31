@@ -1,4 +1,4 @@
-package com.game.Screens.PongScreen;
+package com.game.screens.pongscreen.pongobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

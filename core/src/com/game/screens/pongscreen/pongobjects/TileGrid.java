@@ -1,4 +1,4 @@
-package com.game.Screens.PongScreen;
+package com.game.screens.pongscreen.pongobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -18,14 +18,7 @@ public class TileGrid {
         this.tiles = tiles;
     }
 
-    // constructor without array list
-    public TileGrid(int gridWidth, int gridHeight) {
-        this.gridWidth = gridWidth;
-        this.gridHeight = gridHeight;
-    }
-
     Tile tile;
-
     public void createTiles() {
         int heightGap = 0;
         double tileGap = 70;
@@ -47,12 +40,5 @@ public class TileGrid {
             tile.renderTile(renderer);
             ball.checkCollision(tile);
         }
-    }
-
-    public void renderTileDebug(ShapeRenderer renderer, Ball ball) {
-        tiles.get(0).setX(Gdx.graphics.getWidth()/2 - tiles.get(0).width/2);
-        tiles.get(0).setY(Gdx.graphics.getHeight()/2);
-        tiles.get(0).renderTile(renderer);
-        ball.checkCollisionDebug(tiles.get(0));
     }
 }
