@@ -21,11 +21,11 @@ public class TileDebug {
     }
     Tile tile;
 
-    public void renderTileDebug(ShapeRenderer renderer, Ball ball) {
+    public void renderTileDebug(ShapeRenderer renderer, BallDebug ball) {
         tiles.get(0).setX(Gdx.graphics.getWidth()/2 - tiles.get(0).getWidth() /2);
         tiles.get(0).setY(Gdx.graphics.getHeight()/2);
         tiles.get(0).renderTile(renderer);
-        ball.checkCollisionDebug(tiles.get(0));
+        ball.collidesWithDebug(tiles.get(0));
     }
 
 }
