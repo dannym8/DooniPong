@@ -13,14 +13,12 @@ public class Ball implements Disposable {
 
     private float x;
     private float y;
-    private float radius;
+    private final float radius;
     private float xSpeed;
     private float ySpeed;
     private Color color;
     private float velLeft;
     private float velRight;
-    private float velUp;
-    private float velDown;
 
     public Ball(float x, float y, float radius, float xSpeed, float ySpeed, Color color) {
         this.x = x;
@@ -36,8 +34,8 @@ public class Ball implements Disposable {
         y += ySpeed;
         velLeft = x - radius;
         velRight = x + radius;
-        velUp = y - radius;
-        velDown = y + radius;
+        float velUp = y - radius;
+        float velDown = y + radius;
         if ( velLeft < 0 || velRight > Gdx.graphics.getWidth()) {
             xSpeed = -xSpeed;
         }
@@ -86,10 +84,11 @@ public class Ball implements Disposable {
     Sound blip1 = Gdx.audio.newSound(Gdx.files.internal("sounds/destroysound1.mp3"));
     Sound blip2 = Gdx.audio.newSound(Gdx.files.internal("sounds/destroysound2.mp3"));
 
-    public void checkCollision(Tile tile) {
+    public void checkCollision(Tile tile, Scoreboard scoreboard) {
         if (collidesWith(tile)) {
             counter = 0;
             tile.destroyed = true;
+            scoreboard.updateScore();
             if (Math.random() <= .50) {
                 blip1.play();
             } else {

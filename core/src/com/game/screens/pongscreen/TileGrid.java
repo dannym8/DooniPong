@@ -3,8 +3,6 @@ package com.game.screens.pongscreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.game.screens.pongscreen.Ball;
-import com.game.screens.pongscreen.Tile;
 
 import java.util.ArrayList;
 
@@ -37,10 +35,10 @@ public class TileGrid {
         }
     }
 
-    public void renderTiles(ShapeRenderer renderer, Ball ball) {
+    public void renderTiles(ShapeRenderer renderer, Ball ball, Scoreboard scoreboard) {
         for (Tile tile : tiles) {
             tile.renderTile(renderer);
-            ball.checkCollision(tile);
+            ball.checkCollision(tile,scoreboard);
         }
     }
 }

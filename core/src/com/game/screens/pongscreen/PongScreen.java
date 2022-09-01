@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.game.screens.DooniPong;
@@ -21,6 +22,8 @@ public class PongScreen implements Screen {
 	private final TileGrid tileGrid;
 	private final Background bg;
 	private final Platform platform;
+	private final Scoreboard scoreboard;
+	private final BitmapFont font;
 
 	private final Music rainMusic;
 	final DooniPong game;
@@ -51,7 +54,7 @@ public class PongScreen implements Screen {
 		// background music, looping
 		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/rain.mp3"));
 		rainMusic.setLooping(true);
-		rainMusic.play();
+		//rainMusic.play();
 
 		// arraylist to be used for tiles in tile grid
 		ArrayList<Tile> tiles = new ArrayList<>();
@@ -65,6 +68,14 @@ public class PongScreen implements Screen {
 
 		// player platform (paddle)
 		platform = new Platform(ShapeRenderer.ShapeType.Filled, Color.WHITE);
+
+		// scoreboard init.
+		scoreboard = new Scoreboard();
+
+		// font for screen (arial by default)
+		font = new BitmapFont();
+		font.getData().setScale(1.85f);
+		font.setColor(Color.WHITE);
 
 	}
 
@@ -83,10 +94,13 @@ public class PongScreen implements Screen {
 		ball.checkCollision(platform);
 
 		// check tiles collision
-		tileGrid.renderTiles(renderer, ball);
+		tileGrid.renderTiles(renderer, ball, scoreboard);
 
 		// render ball
 		ball.renderBall(renderer);
+
+		// render scoreboard
+		scoreboard.renderScoreboard(font, batch);
 	}
 
 	@Override
@@ -95,6 +109,7 @@ public class PongScreen implements Screen {
 		rainMusic.dispose();
 		batch.dispose();
 		renderer.dispose();
+		font.dispose();
 	}
 
 	@Override
