@@ -72,7 +72,10 @@ public class Ball implements Disposable {
     public boolean collidesWith(Platform platform) {
         if (y + radius >= platform.y && y - radius <= platform.y + PLATFORM_HEIGHT) {
             if (x - radius <= platform.x + PLATFORM_WIDTH && x + radius >= platform.x) {
-                if (x - radius < platform.x || x + radius > platform.x + PLATFORM_WIDTH) {
+                if (x - radius < platform.x) {
+                    xSpeed = -xSpeed;
+                }
+                if ( x + radius > platform.x + PLATFORM_WIDTH) {
                     xSpeed = -xSpeed;
                 }
                 return true;

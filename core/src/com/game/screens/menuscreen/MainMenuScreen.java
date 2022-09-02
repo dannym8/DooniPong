@@ -18,7 +18,7 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,800,600);
+        camera.setToOrtho(false,1100,650);
     }
 
     @Override
@@ -34,12 +34,17 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to DooniPong!! ", 100, 150);
-        game.font.draw(game.batch, "Press 'SPACE' to begin playing!", 100, 100);
+        game.font.draw(game.batch, "Welcome to DooniPong!! ", 100, 200);
+        game.font.draw(game.batch, "Press 'SPACE' to begin playing HARD MODE!", 100, 100);
+        game.font.draw(game.batch, "Press 'LEFT MOUSE' to begin playing EASY MODE!", 100, 150);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.setScreen(new PongScreen(game));
+            game.setScreen(new PongScreen(game,true));
+            dispose();
+        }
+        else if (Gdx.input.isTouched()) {
+            game.setScreen(new PongScreen(game,false));
             dispose();
         }
     }

@@ -26,7 +26,7 @@ public class TileGrid {
             heightGap--;
             for (int t = 0; t < gridWidth; t++) {
                 tile = new Tile(65,25 , new Color(0xaee6f8));
-                tile.setX((float) (15F + (tileGap * t)));
+                tile.setX((float) (27F + (tileGap * t)));
                 tile.setY((Gdx.graphics.getHeight() - 40) + heightGap * 30);
                 tile.setCol(y + 1);
                 tile.setRow(t + 1);

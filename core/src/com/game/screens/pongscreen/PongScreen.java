@@ -27,17 +27,18 @@ public class PongScreen implements Screen {
 
 	private final Music rainMusic;
 	final DooniPong game;
+	boolean hardMode;
 
-	public PongScreen(final DooniPong game) {
+	public PongScreen(final DooniPong game, boolean hardMode) {
 		this.game = game;
-
+		this.hardMode = hardMode;
 		// sets cursor to be cross-hair (invisible due to cursor catching in the next line)
 		Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Crosshair);
 		Gdx.input.setCursorCatched(true);
 
 		// Tile grid dimensions
-		int gridHeight = 7;
-		int gridWidth = 11;
+		int gridHeight = 6;
+		int gridWidth = 15;
 
 		// batch to render sprites and bg picture
 		batch = new SpriteBatch();
@@ -45,7 +46,7 @@ public class PongScreen implements Screen {
 
 		// orthographic camera
 		OrthographicCamera camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 600);
+		camera.setToOrtho(false, 1100, 650);
 
 		// shape renderer
 		renderer = new ShapeRenderer();
@@ -74,18 +75,23 @@ public class PongScreen implements Screen {
 
 		// font for screen (arial by default)
 		font = new BitmapFont();
-		font.getData().setScale(1.85f);
+		font.getData().setScale(1.80f);
 		font.setColor(Color.WHITE);
 
 	}
 
 	@Override
 	public void render(float delta) {
+
 		// render background image
 		bg.renderBackground(batch);
 
 		// render player platform (paddle)
-		platform.renderPlatform(renderer);
+		if (hardMode) {
+			platform.renderPlatformHardMode(renderer);
+		} else {
+			platform.renderPlatformEasyMode(renderer);
+		}
 
 		// update ball position (movement)
 		ball.updatePos();
@@ -101,6 +107,8 @@ public class PongScreen implements Screen {
 
 		// render scoreboard
 		scoreboard.renderScoreboard(font, batch);
+		Gdx.input.setCursorPosition(0, 0);
+
 	}
 
 	@Override
